@@ -128,6 +128,12 @@ function App() {
           <LocationList locations={locations} />
         )}
       </div>
+
+      <footer className="app-footer">
+        <div className="footer-content">
+          <p>Made by Victoria !!</p>
+        </div>
+      </footer>
     </div>
   )
 }
