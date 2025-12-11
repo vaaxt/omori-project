@@ -1,12 +1,28 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import './App.css'
 import CharacterList from './components/CharacterList'
 import CharacterDetail from './components/CharacterDetail'
 import LocationList from './components/LocationList'
+import NotesList from './components/NotesList'
+import NoteDetail from './components/NoteDetail'
+import CreateNote from './components/CreateNote'
+import UpdateNote from './components/UpdateNote'
 
 function App() {
   const [selectedCharacter, setSelectedCharacter] = useState(null)
   const [activeTab, setActiveTab] = useState('characters')
+  const [notes, setNotes] = useState(() => {
+    const savedNotes = localStorage.getItem('omori-notes')
+    return savedNotes ? JSON.parse(savedNotes) : []
+  })
+  const [selectedNote, setSelectedNote] = useState(null)
+  const [isCreatingNote, setIsCreatingNote] = useState(false)
+  const [isEditingNote, setIsEditingNote] = useState(false)
+
+
+  useEffect(() => {
+    localStorage.setItem('omori-notes', JSON.stringify(notes))
+  }, [notes])
 
   const characters = [
     {
@@ -92,6 +108,53 @@ function App() {
     }
   ]
 
+
+  const createNote = (noteData) => {
+    const newNote = {
+      id: Date.now(),
+      ...noteData,
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString()
+    }
+    setNotes([...notes, newNote])
+    setIsCreatingNote(false)
+  }
+
+
+  const selectNote = (note) => {
+    setSelectedNote(note)
+    setIsEditingNote(false)
+  }
+
+ 
+  const updateNote = (updatedNote) => {
+    setNotes(notes.map(note => 
+      note.id === updatedNote.id 
+        ? { ...updatedNote, updatedAt: new Date().toISOString() }
+        : note
+    ))
+    setSelectedNote(updatedNote)
+    setIsEditingNote(false)
+  }
+
+
+  const deleteNote = (id) => {
+    if (window.confirm('Are you sure you want to delete this note?')) {
+      setNotes(notes.filter(note => note.id !== id))
+      if (selectedNote && selectedNote.id === id) {
+        setSelectedNote(null)
+      }
+    }
+  }
+
+
+  const clearAllNotes = () => {
+    if (window.confirm('Delete all notes? This action cannot be undone!')) {
+      setNotes([])
+      setSelectedNote(null)
+    }
+  }
+
   return (
     <div className="app">
       <header className="app-header">
@@ -102,15 +165,29 @@ function App() {
       <nav className="tabs">
         <button 
           className={activeTab === 'characters' ? 'active' : ''}
-          onClick={() => setActiveTab('characters')}
+          onClick={() => {
+            setActiveTab('characters')
+            setIsCreatingNote(false)
+            setIsEditingNote(false)
+          }}
         >
           CHARACTERS
         </button>
         <button 
           className={activeTab === 'locations' ? 'active' : ''}
-          onClick={() => setActiveTab('locations')}
+          onClick={() => {
+            setActiveTab('locations')
+            setIsCreatingNote(false)
+            setIsEditingNote(false)
+          }}
         >
           LOCATIONS
+        </button>
+        <button 
+          className={activeTab === 'notes' ? 'active' : ''}
+          onClick={() => setActiveTab('notes')}
+        >
+          FAN NOTES
         </button>
       </nav>
 
@@ -124,14 +201,96 @@ function App() {
             />
             <CharacterDetail character={selectedCharacter} />
           </>
-        ) : (
+        ) : activeTab === 'locations' ? (
           <LocationList locations={locations} />
+        ) : (
+
+          <div className="notes-page">
+            <div className="notes-page-header">
+              <h2 className="fun-notes-title">FUN NOTES</h2>
+              <p className="fun-notes-subtitle">Manage your personal Omori fan notes collection</p>
+            </div>
+            
+            <div className="notes-crud-container">
+              <div className="notes-sidebar">
+                <div className="notes-header">
+                  <h3>📝 Your Notes ({notes.length})</h3>
+                  <button 
+                    className="add-note-btn"
+                    onClick={() => {
+                      setIsCreatingNote(true)
+                      setIsEditingNote(false)
+                      setSelectedNote(null)
+                    }}
+                  >
+                    + New Note
+                  </button>
+                  {notes.length > 0 && (
+                    <button 
+                      className="clear-notes-btn"
+                      onClick={clearAllNotes}
+                    >
+                      🗑️ Clear All
+                    </button>
+                  )}
+                </div>
+                
+                <NotesList 
+                  notes={notes}
+                  onSelectNote={selectNote}
+                  selectedNote={selectedNote}
+                  onDeleteNote={deleteNote}
+                  onEditNote={(note) => {
+                    setSelectedNote(note)
+                    setIsEditingNote(true)
+                  }}
+                />
+              </div>
+
+              <div className="notes-detail">
+                {isCreatingNote ? (
+                  <CreateNote 
+                    onCreate={createNote}
+                    onCancel={() => setIsCreatingNote(false)}
+                  />
+                ) : isEditingNote && selectedNote ? (
+                  <UpdateNote 
+                    note={selectedNote}
+                    onUpdate={updateNote}
+                    onCancel={() => setIsEditingNote(false)}
+                  />
+                ) : selectedNote ? (
+                  <NoteDetail 
+                    note={selectedNote}
+                    onEdit={() => setIsEditingNote(true)}
+                    onDelete={() => deleteNote(selectedNote.id)}
+                  />
+                ) : (
+                  <div className="notes-empty">
+                    <h3>Select a note or create new one</h3>
+                    <p>This is your personal space for Omori fan theories, character analysis, and game notes!</p>
+                    <button 
+                      className="start-note-btn"
+                      onClick={() => setIsCreatingNote(true)}
+                    >
+                      ✍️ Start Writing
+                    </button>
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
         )}
       </div>
 
       <footer className="app-footer">
         <div className="footer-content">
           <p>Made by Victoria !!</p>
+          {activeTab === 'notes' && (
+            <p className="footer-stats">
+              {notes.length} note{notes.length !== 1 ? 's' : ''} saved
+            </p>
+          )}
         </div>
       </footer>
     </div>
@@ -139,26 +298,6 @@ function App() {
 }
 
 export default App
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
