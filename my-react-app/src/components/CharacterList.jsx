@@ -1,3 +1,5 @@
+import './CharacterList.css'
+
 function CharacterList({ characters, onCharacterSelect, selectedCharacter }) {
   return (
     <div className="character-list">

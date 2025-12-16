@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import './CreateNote.css'
 
 function CreateNote({ onCreate, onCancel }) {
   const [formData, setFormData] = useState({
@@ -51,7 +52,7 @@ function CreateNote({ onCreate, onCancel }) {
 
   return (
     <div className="create-note">
-      <h2>✍️ Create New Note</h2>
+      <h2>~ Create A New Note!!</h2>
       <form onSubmit={handleSubmit}>
         <div className="form-group">
           <label htmlFor="title">Title (optional):</label>

@@ -1,0 +1,73 @@
+.app-content {
+  display: grid;
+  grid-template-columns: 1fr 1.5fr;
+  gap: 30px;
+  align-items: start;
+}
+
+.character-list {
+    padding-top: 10%;
+}
+
+.character-list h2 {
+  color: black;
+  margin-bottom: 20px;
+  text-align: center;
+  font-size: 2.3em;
+}
+
+.characters-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.character-card {
+  background: rgb(0, 0, 0);
+  color: black;
+  padding: 15px;
+  border-radius: 10px;
+  border-left: 5px solid;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  backdrop-filter: blur(10px);
+}
+
+.character-card:hover {
+  transform: translateX(15px);
+  background: rgb(255, 255, 255);
+  color: black;
+  filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.559));
+}
+
+.character-card.selected {
+  background: white;
+  border: 1px solid black;
+  color: black;
+}
+
+.character-emoji {
+  font-size: 3em;
+  filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.5));
+}
+
+.character-info h3 {
+  color: white;
+  padding-bottom: 5px;
+  font-size: 2.2em;
+}
+
+.character-info p {
+  color: white;
+  font-weight: bold;
+  font-size: 1.5em;
+}
+
+.personality {
+  color: white;
+  font-size: 1.3em;
+  padding-bottom: 10px;
+}

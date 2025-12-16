@@ -1,0 +1,58 @@
+
+.location-list {
+  grid-column: 1 / -1;
+}
+
+.location-list h2 {
+  color: #000000;
+  font-size: 2.3em;
+  text-align: center;
+  padding-top: 50px;
+}
+
+.location-list p {
+  color: #000000;
+  font-size: 20px;
+  text-align: center;
+  padding-bottom: 100px;
+}
+
+
+
+.locations-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(791.5px, 1fr));
+  gap: 20px;
+}
+
+.location-card {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 25px;
+  border-radius: 15px;
+  border: 2px solid #7209b7;
+  position: relative;
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+}
+
+.location-card:hover {
+  transform: translateY(-5px);
+  border-color: #f72585;
+}
+
+.location-type {
+  position: absolute;
+  top: -10px;
+  right: 20px;
+  background: #7209b7;
+  padding: 5px 15px;
+  border-radius: 15px;
+  font-size: 1.1em;
+  font-weight: bold;
+}
+
+.location-card h3 {
+  color: #000000;
+  margin-bottom: 15px;
+  font-size: 2em;
+}

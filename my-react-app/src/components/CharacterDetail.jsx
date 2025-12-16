@@ -1,3 +1,5 @@
+import './CharacterDetail.css'
+
 function CharacterDetail({ character }) {
   if (!character) {
     return (
