@@ -12,7 +12,7 @@ import NotesList from './components/NotesList'
 
 function App() {
   const [selectedCharacter, setSelectedCharacter] = useState(null)
-  const [activeTab, setActiveTab] = useState('characters')
+  const [activeTab, setActiveTab] = useState('home')
   const [notes, setNotes] = useState(() => {
     const savedNotes = localStorage.getItem('omori-notes')
     return savedNotes ? JSON.parse(savedNotes) : []

@@ -51,6 +51,16 @@ function Home() {
           </p>
         </div>
 
+        <div className={`contacts-text-container ${showImages ? 'show' : ''}`} style={{ animationDelay: '0.8s' }}>
+          <h1 className="contacts">CONTACTS~</h1>
+          <p className="contacts-subtitle">
+            +996 550 045 571
+            @ivaschenko_v@iuca.kg
+
+          </p>
+      
+        </div>
+
     </div>
   )
 }

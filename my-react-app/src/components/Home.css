@@ -1,6 +1,6 @@
 .home-page {
   width: 100%;
-  height: 70vh;
+  height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -12,7 +12,7 @@
   gap: 80px;
   align-items: center;
   justify-content: center;
-  margin-top: -50px;
+  margin-top: 0px;
   margin-left: -70vh;
 }
 
@@ -41,15 +41,15 @@
   animation: float 3s ease-in-out infinite;
   width: 448px;
   height: 375px;
-  margin-top: -80px;
+  margin-top: 0px;
 }
 
 .welcome-image {
   animation: pulse 3s infinite;
   width: 368px;
   height: 193px;
-  margin-left: 70px;
-  margin-top: -250px;
+  margin-left: 80px;
+  margin-top: -200px;
   position: absolute;
 }
 
@@ -75,7 +75,7 @@
   text-align: center;
   color: #333;
   padding-left: 550px;
-  margin-top: -240px;
+  margin-top: -220px;
 }
 
 .welcome-text-container.show {
@@ -108,6 +108,37 @@
 
 
 
+.contacts-text-container {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+  width: 800px;
+  text-align: center;
+  color: #333;
+  margin-top: 200px;
+  margin-left: 100px;
+}
+
+.contacts-text-container.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.contacts-title {
+  font-size: 50px;
+  font-weight: bold;
+  color: #000000;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+  padding-bottom: 20px;
+  padding-top: 20px;
+}
+
+.contacts-subtitle {
+  font-size: 25px;
+  line-height: 1.6;
+  color: #000000;
+  margin-bottom: 0.8rem;
+}
 
 
 
